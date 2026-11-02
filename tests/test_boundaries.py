@@ -9,7 +9,8 @@ from workbench.labs import lab
 
 class BoundaryTests(unittest.TestCase):
     def test_input_stops_before_inference(self):
-        for raw in ({}, None, [], {**request(), "issue": 1}, {**request(), "issue": "x" * 4001}):
+        for raw in ({}, None, [], {**request(), "issue": 1}, {**request(), "issue": "x" * 4001},
+                    {**request(), "issue": "\ud800"}):
             with self.subTest(raw=type(raw)):
                 p = FixtureProvider()
                 self.assertEqual(run(raw, p)["state"], "reject")

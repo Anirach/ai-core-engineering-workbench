@@ -35,7 +35,11 @@ def input_check(raw):
         return Gate("reject", "input_schema")
     if not all(isinstance(x, str) for x in raw.values()):
         return Gate("reject", "input_type")
-    if not 1 <= len(raw["issue"].encode()) <= 4000 or not raw["id"].strip():
+    try:
+        issue_bytes = raw["issue"].encode("utf-8")
+    except UnicodeEncodeError:
+        return Gate("reject", "input_encoding")
+    if not 1 <= len(issue_bytes) <= 4000 or not raw["id"].strip():
         return Gate("reject", "input_size")
     return Gate("pass", "input_valid")
 
