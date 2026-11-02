@@ -1,0 +1,6 @@
+[project]
+name = "ai-core-engineering-workbench"
+version = "1.0.0"
+description = "15-part offline-first AI-Core/Jev architecture course companion"
+requires-python = ">=3.11"
+dependencies = []
