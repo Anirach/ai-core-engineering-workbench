@@ -122,7 +122,7 @@ def output_check(candidate):
         return Gate("reject", "source_function")
     f = tree.body[0]
     if (f.name != SKILL["function"] or [x.arg for x in f.args.args] != SKILL["args"]
-            or len(f.body) != 1 or not isinstance(f.body[0], ast.Return)
+            or len(f.body) != 1 or not isinstance(f.body[0], ast.Return) or f.body[0].value is None
             or f.decorator_list or f.returns or f.args.defaults
             or f.args.posonlyargs or f.args.kwonlyargs or f.args.vararg or f.args.kwarg
             or any(x.annotation for x in f.args.args)

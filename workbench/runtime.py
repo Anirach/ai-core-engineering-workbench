@@ -1,6 +1,7 @@
 """Imperative shell. Drafts stay in memory; this does not open a GitHub PR."""
 from dataclasses import asdict
 from time import monotonic
+import math
 from .core import (MODEL, POLICY, SKILL, QUESTION, QUALITY_QUESTIONS, digest,
                    input_check, decision_check, semantic_input, authorize,
                    assemble_context, output_check, behavior_check, quality_gate)
@@ -46,7 +47,7 @@ def run(raw, provider, principal="maintainer", max_calls=5, max_revisions=1,
         seconds=2, clock=monotonic):
     if type(max_calls) is not int or max_calls < 0 or type(max_revisions) is not int or max_revisions < 0:
         raise ValueError("nonnegative integer budgets required")
-    if not isinstance(seconds, (int, float)) or seconds <= 0:
+    if type(seconds) not in (int, float) or not math.isfinite(seconds) or seconds <= 0:
         raise ValueError("positive time budget required")
     trace, attempts, calls, started = [], 0, 0, clock()
     manifest = {"policy": POLICY, "skill_hash": digest(SKILL), "questions_hash": digest(QUESTION),

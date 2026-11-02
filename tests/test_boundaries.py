@@ -49,7 +49,8 @@ class BoundaryTests(unittest.TestCase):
                    "def discount_cents(price=evil(), percent=0):\n    return price\n",
                    "def discount_cents(price, percent):\n    return secret\n",
                    "def discount_cents(price, percent):\n    return True\n",
-                   "def discount_cents(price, percent):\n    return 1.5\n"]
+                   "def discount_cents(price, percent):\n    return 1.5\n",
+                   "def discount_cents(price, percent):\n    return\n"]
         for source in sources:
             with self.subTest(source=source):
                 self.assertEqual(output_check(candidate(source)).state, "reject")
